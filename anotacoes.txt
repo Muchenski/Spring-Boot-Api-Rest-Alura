@@ -1,0 +1,27 @@
+##################################################################################################################
+
+@EnableSpringDataWebSupport
+
+Anotação para conseguirmos repassar dados da requisição para o Spring Data JPA.
+Ex: Pegar o Pageable no parâmetro de um controlador, preenchido com os dados da requisição, 
+e repassar para o JpaRepository como critério de consulta.
+
+##################################################################################################################
+
+Por padrão, o Spring ordena a paginação pela chave primária.
+Podemos definir mais de um atributo para ser critério de ordenação, com direções diferentes.
+	
+http://localhost:8080/topicos?page=0&size=2&sort=titulo,asc&sort=dataCriacao,desc
+
+##################################################################################################################
+
+Page<Topico> findByCurso_NomeContainingIgnoreCase(String nome, Pageable pageable);
+
+Caso utilizassemos findByCursoNomeContainingIgnoreCase, e houvesse um
+atributo chamado cursoNome na entidade Topico, iria haver erro de
+ambiguidade.
+Utilizando o underline conseguimos definir que a propriedade após o underline
+pertence a entidade que está antes do underline.
+
+##################################################################################################################
+
