@@ -3,6 +3,7 @@ package com.alura.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,12 +21,14 @@ import com.alura.model.services.AutenticacaoService;
 import com.alura.model.services.TokenService;
 import com.alura.repository.UsuarioRepository;
 
+@Profile(value = "prod")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private final String[] PUBLIC_GET = { "/topicos", "/topicos/**", "/actuator/**" };
 	private final String[] PUBLIC_POST = { "/auth/**" };
+	private final String[] MODERADOR_DELETE = { "/topicos/**" };
 
 	@Autowired
 	private AutenticacaoService autenticacaoService;
@@ -48,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.GET, PUBLIC_GET).permitAll()
 			.antMatchers(HttpMethod.POST, PUBLIC_POST).permitAll()
+			.antMatchers(HttpMethod.DELETE, MODERADOR_DELETE).hasAnyRole("MODERADOR")
 			.anyRequest().authenticated()
 			.and()
 			// Removido para não criar sessão .formLogin(); // Para o Spring gerar um formulário de autenticação.
