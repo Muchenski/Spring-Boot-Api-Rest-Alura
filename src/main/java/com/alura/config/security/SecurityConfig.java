@@ -59,8 +59,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	// Método responsável para configurar acesso a recursos estáticos (html, css, js, imagens...).
 	@Override
-	public void configure(WebSecurity web) throws Exception {
-	}
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs",
+                                   "/configuration/ui",
+                                   "/swagger-resources/**",
+                                   "/configuration/security",
+                                   "/swagger-ui.html",
+                                   "/webjars/**");
+    }
 	
 	@Bean
 	@Override
