@@ -36,3 +36,28 @@ Devemos utilizar esta anotação nos métodos que irão precisar invalidar um ca
 
 Não conseguimos realizar injeção de dependência com @Autowired em filtros, e nem injetá-los como dependência em outras classes.
 
+##################################################################################################################
+
+@DataJpaTest para testes que envolvam apenas a camada de persistência.
+
+@WebMvcTest para testes que envolvam apenas a camada de controller/rest controller/controller advice.
+
+Porém, para testar todas as camadas da aplicação @SpringBootTest.
+
+##################################################################################################################
+
+Por padrão, o Spring Boot Test considera que os testes serão executados utilizando banco de dados em memória, como o H2.
+
+Caso queiramos testar utilizando um banco de dados que não é em memória, devemos anotar os testes com @AutoConfigureTestDatabase(replace = Replace.NONE).
+
+Assim o banco utilizado será o banco de dados do application.properties.
+
+@ActiveProfiles(value = "test") // Forçando o Spring a utilizar o profile "test" ao executar uma classe.
+
+O Arquivo data.sql, por padrão, é executado nos banco de dados dos diferentes ambientes(profiles ativos).
+
+Para impedir isso em determinado ambiente, devemos utilizar a seguinte propriedade no .properties referente ao ambiente:
+
+spring.datasource.initialization-mode=never
+
+##################################################################################################################

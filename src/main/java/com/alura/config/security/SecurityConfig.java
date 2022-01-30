@@ -21,7 +21,7 @@ import com.alura.model.services.AutenticacaoService;
 import com.alura.model.services.TokenService;
 import com.alura.repository.UsuarioRepository;
 
-@Profile(value = "prod")
+@Profile(value = {"prod" , "test"})
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
