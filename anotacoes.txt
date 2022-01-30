@@ -34,3 +34,5 @@ Devemos utilizar esta anotação nos métodos que irão precisar invalidar um ca
 
 ##################################################################################################################
 
+Não conseguimos realizar injeção de dependência com @Autowired em filtros, e nem injetá-los como dependência em outras classes.
+

@@ -1,4 +1,4 @@
-package com.alura.services;
+package com.alura.model.services;
 
 import java.util.Optional;
 
