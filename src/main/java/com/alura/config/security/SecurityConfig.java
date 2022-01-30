@@ -24,7 +24,7 @@ import com.alura.repository.UsuarioRepository;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private final String[] PUBLIC_GET = { "/topicos", "/topicos/**" };
+	private final String[] PUBLIC_GET = { "/topicos", "/topicos/**", "/actuator/**" };
 	private final String[] PUBLIC_POST = { "/auth/**" };
 
 	@Autowired
