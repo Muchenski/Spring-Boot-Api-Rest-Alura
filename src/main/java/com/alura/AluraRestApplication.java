@@ -2,6 +2,7 @@ package com.alura;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @SpringBootApplication
@@ -9,6 +10,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 // Ex: Pegar o Pageable no parâmetro de um controlador, preenchido com os dados da requisição, 
 // e repassar para o JpaRepository como critério de consulta.
 @EnableSpringDataWebSupport
+@EnableCaching
 public class AluraRestApplication {
 
 	public static void main(String[] args) {

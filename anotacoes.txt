@@ -25,3 +25,12 @@ pertence a entidade que está antes do underline.
 
 ##################################################################################################################
 
+O Cache do Spring é inteligente e percebe alterações de valores nos parâmetros da requisição.
+Para habilitarmos, precisamos utilizar a anotação @EnableCaching após inserir a dependência.
+Basta anotarmos o método que queremos realizar cache com @Cacheable(value = <id do método>), com import do pacote do Spring.
+
+@CacheEvict(value = <id's dos métodos a terem os caches invalidados>, allEntries = true)
+Devemos utilizar esta anotação nos métodos que irão precisar invalidar um cache para atualizar as informações cacheadas.
+
+##################################################################################################################
+

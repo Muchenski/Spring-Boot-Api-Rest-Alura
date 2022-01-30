@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -43,6 +45,9 @@ public class TopicoResource {
 	// Por padrão, o Spring ordena a paginação pela chave primária.
 	// Podemos definir mais de um atributo para ser critério de ordenação, com direções diferentes.
 	// http://localhost:8080/topicos?page=0&size=2&sort=titulo,asc&sort=dataCriacao,desc&nome=Spring+Boot
+	
+	// O Cache é inteligente e percebe alterações de valores nos parâmetros da requisição.
+	@Cacheable(value = "filtrarPorNome")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Page<TopicoDto>> filtrarPorNome(
 			@RequestParam(required = false) String nome, 
@@ -64,6 +69,7 @@ public class TopicoResource {
 		return resourceUtils.retornarLista(dtos);
 	}
 
+	@CacheEvict(value = "filtrarPorNome", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoCadastroDto topicoCadastroDto) {
 		Topico topico = topicoConverter.converterTopicoCadastroDtoParaTopico(topicoCadastroDto);
@@ -81,6 +87,7 @@ public class TopicoResource {
 		return ResponseEntity.notFound().build();
 	}
 
+	@CacheEvict(value = "filtrarPorNome", allEntries = true)
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
 	public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id, @RequestBody @Valid TopicoAtualizaDto topicoAtualizaDto) {
 		Optional<Topico> optional = topicoRepository.findById(id);
@@ -92,6 +99,7 @@ public class TopicoResource {
 		return ResponseEntity.notFound().build();
 	}
 
+	@CacheEvict(value = "filtrarPorNome", allEntries = true)
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
 	public ResponseEntity<Void> remover(@PathVariable Long id) {
 		Optional<Topico> optional = topicoRepository.findById(id);
